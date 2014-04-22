@@ -28,8 +28,8 @@
 	<artifactId>server</artifactId>
 
 	<!-- Artifact Metadata -->
-	<name>Licensing Client</name>
-	<description>Allows validation of product licenses.</description>
+	<name>Licensing Server</name>
+	<description>Allows to issue licenses.</description>
 
 	<!-- Build Properties -->
 	<properties>
