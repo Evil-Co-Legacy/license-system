@@ -1,4 +1,4 @@
-License System [![Build Status](http://assets.evil-co.com/build/NBTLIB-MASTER.png)](http://www.evil-co.com/ci/browse/JLS-MASTER)
+License System [![Build Status](http://assets.evil-co.com/build/JLS-MASTER.png)](http://www.evil-co.com/ci/browse/JLS-MASTER)
 ==============
 The License System for Java provides a lightweight and customer friendly open-source solution for license validation
 and feature restrictions.
