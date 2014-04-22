@@ -78,7 +78,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 			int dataLength = inputStream.readInt ();
 
 			// read data
-			byte[] data = new byte[dataLength];
+			byte[] data = new byte[dataLength]; // FIXME: There is a possible exploit here. If the supplied data is malformed this might cause the heap to overflow. No clue whether we can fix this but it should be hard to exploit in most applications anyways ...
 			inputStream.readFully (data);
 
 			// decode string
