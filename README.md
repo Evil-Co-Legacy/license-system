@@ -84,6 +84,16 @@ When the license is important the file is (optionally) decoded (Base64) and then
 is then split up and the RSA signature is being verified against hte provided public key. In the last step the data is
 then un-serialized and is being turned back into a POJO representation and can be used to your heart's content.
 
+Versioning
+----------
+In some cases you might want to add new properties or remove old ones. For that case the library does implement Gson's
+version API. You can define which properties are available in a license version by using the ```@Since``` and ```@Until```
+annotations with the respective license version. The most recent license version, which is used for encoding, can be
+specified with the ```@LicenseVersion``` annotation and will then be automatically added to licenses generated in the
+future.
+
+**Please Note:** If the ```@LicenseVersion``` annotation is not present version *1.0* is assumed.
+
 Extensions
 ----------
 Due to the interfaces provided along with the libraries you may also implement your own formats (as example extending
