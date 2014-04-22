@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Artifact Information -->
+	<groupId>com.evilco.license</groupId>
+	<artifactId>parent</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<packaging>pom</packaging>
+
+	<!-- Artifact Metadata -->
+	<name>Evil-Co Licensing System</name>
+	<description>Provides a simple licensing solution.</description>
+	<inceptionYear>2014</inceptionYear>
+
+	<!-- Author Metadata -->
+	<organization>
+		<name>Evil-Co</name>
+		<url>http://www.evil-co.com</url>
+	</organization>
+
+	<contributors>
+		<contributor>
+			<name>Johannes "Akkarin" Donath</name>
+			<email>johannesd@evil-co.com</email>
+			<url>http://www.johannes-donath.com</url>
+			<timezone>GMT +01:00</timezone>
+
+			<organization>Evil-Co</organization>
+			<organizationUrl>http://www.evil-co.com</organizationUrl>
+
+			<roles>
+				<role>Project Maintainer</role>
+				<role>Software Engineering</role>
+			</roles>
+		</contributor>
+	</contributors>
+
+	<!-- License Metadata -->
+	<licenses>
+		<!-- Open Source -->
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+
+	<!-- Project Management Metadata -->
+	<ciManagement>
+		<system>Bamboo</system>
+		<url>http://evilco.atlassian.net/builds/browse/EAUTH</url>
+	</ciManagement>
+
+	<issueManagement>
+		<system>Jira</system>
+		<url>https://evilco.atlassian.net/browse/EAUTH</url>
+	</issueManagement>
+
+	<scm>
+		<url>https://www.evil-co.com/repository</url>
+	</scm>
+
+	<!-- Prerequisites -->
+	<prerequisites>
+		<maven>3.0.0</maven>
+	</prerequisites>
+
+	<!-- Distribution Management -->
+	<distributionManagement>
+		<!-- Release Distribution -->
+		<repository>
+			<id>evil-co</id>
+			<url>http://nexus.evil-co.org/content/repositories/free/</url>
+		</repository>
+
+		<!-- Snapshot Distribution -->
+		<snapshotRepository>
+			<id>evil-co</id>
+			<url>http://nexus.evil-co.org/content/repositories/free-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<!-- Sub Projects -->
+	<modules>
+		<module>client</module>
+		<module>common</module>
+		<module>server</module>
+		<module>test</module>
+	</modules>
+</project>

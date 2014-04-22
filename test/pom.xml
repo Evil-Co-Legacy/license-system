@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--~
+  ~ Copyright (C) 2014 Evil-Co <http://wwww.evil-co.com>
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Parent Artifact Information -->
+	<parent>
+		<artifactId>parent</artifactId>
+		<groupId>com.evilco.license</groupId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<!-- Artifact Information -->
+	<artifactId>test</artifactId>
+	<packaging>jar</packaging>
+
+	<!-- Artifact Metadata -->
+	<name>Licensing System Test Project</name>
+	<description>Provides unit tests for the licensing system.</description>
+
+	<!-- Dependencies -->
+	<dependencies>
+		<!-- License System -->
+		<dependency>
+			<groupId>com.evilco.license</groupId>
+			<artifactId>client</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.evilco.license</groupId>
+			<artifactId>common</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.evilco.license</groupId>
+			<artifactId>server</artifactId>
+			<version>${project.parent.version}</version>
+		</dependency>
+
+		<!-- junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Mockito -->
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+			<version>1.9.5</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<!-- Build Configuration -->
+	<build>
+		<finalName>${project.groupId}.${project.artifactId}-${project.version}</finalName>
+
+		<!-- Test Resources -->
+		<testResources>
+			<!-- Signature Keypair -->
+			<testResource>
+				<directory>${project.basedir}/src/test/resources</directory>
+				<targetPath>.</targetPath>
+				<filtering>false</filtering>
+
+				<includes>
+					<include>test.key</include>
+					<include>test.license</include>
+					<include>test.pub</include>
+				</includes>
+			</testResource>
+		</testResources>
+
+		<plugins>
+			<!-- Compiler -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+
+				<executions>
+					<execution>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Skip Deploy -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-deploy-plugin</artifactId>
+				<version>2.4</version>
+
+				<configuration>
+					<skip>true</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
