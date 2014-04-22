@@ -16,10 +16,12 @@
 package com.evilco.license.server.encoder;
 
 import com.evilco.license.common.ILicense;
+import com.evilco.license.common.annotation.LicenseVersion;
 import com.evilco.license.common.exception.LicenseEncoderException;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
@@ -72,10 +74,12 @@ public class JsonLicenseEncoder implements ILicenseEncoder<byte[]> {
 		// write data
 		try {
 			// serialize data
-			String data = this.getGson ().toJson (license);
+			double version = (license.getClass ().isAnnotationPresent (LicenseVersion.class) ? license.getClass ().getAnnotation (LicenseVersion.class).value () : 1.0);
+			String data = this.getGson (version).toJson (license);
 			byte[] dataRaw = data.getBytes (CHARSET_LICENSE_TEXT);
 
 			// write data
+			outputStream.writeDouble (version);
 			outputStream.writeInt (dataRaw.length);
 			outputStream.write (dataRaw);
 
@@ -125,11 +129,15 @@ public class JsonLicenseEncoder implements ILicenseEncoder<byte[]> {
 	}
 
 	/**
-	 * Returns the encoder Gson instance.
-	 * @return The Gson instance.
+	 * Returns the gson instance for json de- and encoding.
+	 * @param version The object version.
+	 * @return The gson instance.
 	 */
-	public Gson getGson () {
-		return (new Gson ());
+	public Gson getGson (double version) {
+		GsonBuilder builder = new GsonBuilder ();
+		builder.setVersion (version);
+
+		return builder.create ();
 	}
 
 	/**
