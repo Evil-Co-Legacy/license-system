@@ -23,11 +23,9 @@ import com.google.common.io.BaseEncoding;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nonnull;
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.util.zip.DeflaterOutputStream;
 import java.util.zip.GZIPOutputStream;
 
 /**

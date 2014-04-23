@@ -21,7 +21,6 @@ import com.evilco.license.common.exception.LicenseInvalidException;
 import com.google.common.base.Preconditions;
 
 import javax.annotation.Nonnull;
-import java.util.Date;
 
 /**
  * Provides a default implementation for license representations.

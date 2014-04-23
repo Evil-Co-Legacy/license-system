@@ -18,7 +18,6 @@ package com.evilco.license.test;
 import com.evilco.license.client.decoder.CompressedLicenseDecoder;
 import com.evilco.license.client.decoder.JsonLicenseDecoder;
 import com.evilco.license.common.data.AbstractExpiringLicense;
-import com.evilco.license.common.data.AbstractLicense;
 import com.evilco.license.common.data.holder.CompanyLicenseHolder;
 import com.evilco.license.common.data.holder.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseDecoderException;
@@ -34,7 +33,8 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;

@@ -17,8 +17,6 @@ package com.evilco.license.common;
 
 import com.evilco.license.common.exception.LicenseInvalidException;
 
-import java.util.Date;
-
 /**
  * Provides default method structures for license representations.
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>

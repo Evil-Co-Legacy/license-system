@@ -22,11 +22,9 @@ import com.google.common.io.BaseEncoding;
 import org.apache.commons.io.IOUtils;
 
 import javax.annotation.Nonnull;
-import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
-import java.util.zip.DeflaterInputStream;
 import java.util.zip.GZIPInputStream;
 
 /**

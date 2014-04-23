@@ -22,7 +22,6 @@ import com.evilco.license.common.exception.LicenseEncoderException;
 import javax.annotation.Nonnull;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 
 /**
  * Provides default method structures for license encoders.
