@@ -175,7 +175,7 @@ public class GeneralTest {
 	 * @throws LicenseEncoderException
 	 * @throws LicenseDecoderException
 	 */
-	@Test (expected = LicenseInvalidException.class)
+	@Test (expected = LicenseExpirationException.class)
 	public void validationExpirationTest () throws LicenseEncoderException, LicenseDecoderException {
 		// create date for yesterday
 		Calendar calendar = Calendar.getInstance ();
@@ -251,7 +251,7 @@ public class GeneralTest {
 	 * @throws LicenseDecoderException
 	 * @throws NoSuchAlgorithmException
 	 */
-	@Test (expected = LicenseExpirationException.class)
+	@Test (expected = LicenseInvalidException.class)
 	public void validationSignatureTest () throws LicenseEncoderException, LicenseDecoderException, NoSuchAlgorithmException {
 		// generate new key pair
 		PrivateKey temporaryKey = SignatureUtility.generateKeyPair (KEY_SIZE).getPrivate ();
