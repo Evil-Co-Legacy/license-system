@@ -18,6 +18,7 @@ package com.evilco.license.test;
 import com.evilco.license.client.decoder.CompressedLicenseDecoder;
 import com.evilco.license.client.decoder.JsonLicenseDecoder;
 import com.evilco.license.common.data.AbstractExpiringLicense;
+import com.evilco.license.common.data.AbstractGracefulExpiringLicense;
 import com.evilco.license.common.data.holder.CompanyLicenseHolder;
 import com.evilco.license.common.data.holder.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseDecoderException;
@@ -34,8 +35,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.*;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -191,6 +196,56 @@ public class GeneralTest {
 	}
 
 	/**
+	 * Tests graceful license validations (expiration).
+	 * @throws LicenseEncoderException
+	 * @throws LicenseDecoderException
+	 */
+	@Test
+	public void validationGracefulExpirationTest () throws LicenseEncoderException, LicenseDecoderException {
+		// create date for yesterday
+		Calendar calendar = Calendar.getInstance ();
+		calendar.add (Calendar.DATE, -1);
+
+		// create license (expired but in grace period for 5 days)
+		GracefulTestLicense license = new GracefulTestLicense (new CompanyLicenseHolder ("Example Ltd.", null), calendar.getTime (), 5);
+
+		// create codec instances
+		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (this.keyPair.getPrivate ()));
+		CompressedLicenseDecoder decoder = new CompressedLicenseDecoder (new JsonLicenseDecoder (this.keyPair.getPublic ()));
+
+		// encode
+		String encodedLicense = encoder.encode (license);
+
+		// decode
+		decoder.decode (encodedLicense, GracefulTestLicense.class);
+	}
+
+	/**
+	 * Tests graceful license validations (expiration).
+	 * @throws LicenseEncoderException
+	 * @throws LicenseDecoderException
+	 */
+	@Test (expected = LicenseExpirationException.class)
+	public void validationGracefulFailedExpirationTest () throws LicenseEncoderException, LicenseDecoderException {
+		// create date for 30 days ago
+		Calendar calendar = Calendar.getInstance ();
+		calendar.add (Calendar.DATE, -30);
+
+		// create license (expired and out of grace period)
+		GracefulTestLicense license = new GracefulTestLicense (new CompanyLicenseHolder ("Example Ltd.", null), calendar.getTime (), 5);
+
+		// create codec instances
+		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (this.keyPair.getPrivate ()));
+		CompressedLicenseDecoder decoder = new CompressedLicenseDecoder (new JsonLicenseDecoder (this.keyPair.getPublic ()));
+
+		// encode
+		String encodedLicense = encoder.encode (license);
+
+		// decode
+		decoder.decode (encodedLicense, GracefulTestLicense.class);
+	}
+
+	/**
 	 * Tests license validations (signature).
 	 * @throws LicenseEncoderException
 	 * @throws LicenseDecoderException
@@ -226,7 +281,7 @@ public class GeneralTest {
 		protected int testValue;
 
 		/**
-		 * Constructs a new TestLicense.
+		 * Constructs a new empty TestLicense.
 		 */
 		protected TestLicense () {
 			super ();
@@ -248,6 +303,29 @@ public class GeneralTest {
 		 */
 		public int getTestValue () {
 			return this.testValue;
+		}
+	}
+
+	/**
+	 * A graceful test license.
+	 */
+	public class GracefulTestLicense extends AbstractGracefulExpiringLicense {
+
+		/**
+		 * Constructs a new empty GracefulTestLicense.
+		 */
+		protected GracefulTestLicense () {
+			super ();
+		}
+
+		/**
+		 * Constructs a new GracefulTestLicense.
+		 * @param licensee
+		 * @param expiration
+		 * @param gracePeriod
+		 */
+		protected GracefulTestLicense (@Nonnull ILicenseHolder licensee, @Nullable Date expiration, int gracePeriod) {
+			super (licensee, expiration, gracePeriod);
 		}
 	}
 }
