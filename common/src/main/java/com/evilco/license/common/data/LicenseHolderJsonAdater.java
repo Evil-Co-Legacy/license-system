@@ -19,6 +19,11 @@ import com.google.gson.*;
 
 import java.lang.reflect.Type;
 
+/**
+ * Allows (de-)serialization of license holders.
+ * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
+ * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
+ */
 public class LicenseHolderJsonAdater implements JsonDeserializer<ILicenseHolder> {
 
 	/**
