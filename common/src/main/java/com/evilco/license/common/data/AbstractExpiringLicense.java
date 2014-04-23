@@ -43,8 +43,8 @@ public abstract class AbstractExpiringLicense extends AbstractLicense {
 
 	/**
 	 * Constructs a new AbstractExpiringLicense.
-	 * @param licensee
-	 * @param expiration
+	 * @param licensee The license holder.
+	 * @param expiration The license expiration date.
 	 */
 	protected AbstractExpiringLicense (@Nonnull ILicenseHolder licensee, @Nullable Date expiration) {
 		super (licensee);

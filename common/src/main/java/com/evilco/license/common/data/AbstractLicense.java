@@ -43,7 +43,7 @@ public abstract class AbstractLicense implements ILicense {
 
 	/**
 	 * Constructs a new AbstractLicense.
-	 * @param licensee
+	 * @param licensee The license holder.
 	 */
 	protected AbstractLicense (@Nonnull ILicenseHolder licensee) {
 		Preconditions.checkNotNull (licensee);
