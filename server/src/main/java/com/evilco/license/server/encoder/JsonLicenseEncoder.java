@@ -18,7 +18,7 @@ package com.evilco.license.server.encoder;
 import com.evilco.license.common.ILicense;
 import com.evilco.license.common.annotation.LicenseVersion;
 import com.evilco.license.common.data.ILicenseHolder;
-import com.evilco.license.common.data.LicenseHolderJsonAdater;
+import com.evilco.license.common.data.LicenseHolderJsonAdapter;
 import com.evilco.license.common.exception.LicenseEncoderException;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;
@@ -29,7 +29,6 @@ import javax.annotation.Nonnull;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.security.*;
 
@@ -71,7 +70,7 @@ public class JsonLicenseEncoder implements ILicenseEncoder<byte[]> {
 		this.privateKey = privateKey;
 
 		// add default adapters
-		this.gsonBuilder.registerTypeAdapter (ILicenseHolder.class, new LicenseHolderJsonAdater ());
+		this.gsonBuilder.registerTypeAdapter (ILicenseHolder.class, new LicenseHolderJsonAdapter ());
 	}
 
 	/**

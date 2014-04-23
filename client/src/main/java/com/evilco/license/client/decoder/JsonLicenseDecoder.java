@@ -17,7 +17,7 @@ package com.evilco.license.client.decoder;
 
 import com.evilco.license.common.ILicense;
 import com.evilco.license.common.data.ILicenseHolder;
-import com.evilco.license.common.data.LicenseHolderJsonAdater;
+import com.evilco.license.common.data.LicenseHolderJsonAdapter;
 import com.evilco.license.common.exception.LicenseDecoderException;
 import com.evilco.license.common.exception.LicenseInvalidException;
 import com.google.common.base.Charsets;
@@ -70,7 +70,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 		this.publicKey = publicKey;
 
 		// add default type adapters
-		this.gsonBuilder.registerTypeAdapter (ILicenseHolder.class, new LicenseHolderJsonAdater ());
+		this.gsonBuilder.registerTypeAdapter (ILicenseHolder.class, new LicenseHolderJsonAdapter ());
 	}
 
 	/**
