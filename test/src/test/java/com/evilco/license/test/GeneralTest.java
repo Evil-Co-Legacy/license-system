@@ -17,6 +17,7 @@ package com.evilco.license.test;
 
 import com.evilco.license.client.decoder.CompressedLicenseDecoder;
 import com.evilco.license.client.decoder.JsonLicenseDecoder;
+import com.evilco.license.common.data.AbstractExpiringLicense;
 import com.evilco.license.common.data.AbstractLicense;
 import com.evilco.license.common.data.holder.CompanyLicenseHolder;
 import com.evilco.license.common.data.holder.ILicenseHolder;
@@ -216,7 +217,7 @@ public class GeneralTest {
 	/**
 	 * A test license.
 	 */
-	public class TestLicense extends AbstractLicense {
+	public class TestLicense extends AbstractExpiringLicense {
 
 		/**
 		 * Stores a test value.

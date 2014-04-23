@@ -27,18 +27,6 @@ import java.util.Date;
 public interface ILicense {
 
 	/**
-	 * Returns the expiration date.
-	 * @return The expiration date.
-	 */
-	public Date getExpirationDate ();
-
-	/**
-	 * Checks whether the license has expired.
-	 * @return True if the license has expired.
-	 */
-	public boolean isExpired ();
-
-	/**
 	 * Checks whether the license is valid.
 	 * @return True if the license is still valid.
 	 */

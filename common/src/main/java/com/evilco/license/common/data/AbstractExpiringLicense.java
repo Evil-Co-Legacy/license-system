@@ -15,48 +15,55 @@
  */
 package com.evilco.license.common.data;
 
-import com.evilco.license.common.ILicense;
 import com.evilco.license.common.data.holder.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseInvalidException;
-import com.google.common.base.Preconditions;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Date;
 
 /**
- * Provides a default implementation for license representations.
+ * Provides a simple implementation for expiring licenses.
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public abstract class AbstractLicense implements ILicense {
-
-
+public abstract class AbstractExpiringLicense extends AbstractLicense {
 
 	/**
-	 * Stores the license licensee.
+	 * Stores the license expiration.
 	 */
-	protected ILicenseHolder licensee;
+	protected Date expiration = null;
 
 	/**
-	 * Constructs a new empty AbstractLicense.
+	 * Constructs a new empty AbstractExpiringLicense.
 	 */
-	protected AbstractLicense () { }
-
-	/**
-	 * Constructs a new AbstractLicense.
-	 * @param licensee
-	 */
-	protected AbstractLicense (@Nonnull ILicenseHolder licensee) {
-		Preconditions.checkNotNull (licensee);
-		this.licensee = licensee;
+	protected AbstractExpiringLicense () {
+		super ();
 	}
 
 	/**
-	 * Returns the licensee.
-	 * @return
+	 * Constructs a new AbstractExpiringLicense.
+	 * @param licensee
+	 * @param expiration
 	 */
-	public ILicenseHolder getLicensee () {
-		return this.licensee;
+	protected AbstractExpiringLicense (@Nonnull ILicenseHolder licensee, @Nullable Date expiration) {
+		super (licensee);
+		this.expiration = expiration;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public Date getExpirationDate () {
+		if (this.expiration == null) return null;
+		return this.expiration;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public boolean isExpired () {
+		return (this.expiration != null && this.expiration.before (new Date ()));
 	}
 
 	/**
@@ -64,12 +71,15 @@ public abstract class AbstractLicense implements ILicense {
 	 */
 	@Override
 	public boolean isValid () {
-		return true;
+		return !this.isExpired ();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void validate () throws LicenseInvalidException { }
+	public void validate () throws LicenseInvalidException {
+		super.validate ();
+		if (this.isExpired ()) throw new LicenseInvalidException ("The license is expired.");
+	}
 }
