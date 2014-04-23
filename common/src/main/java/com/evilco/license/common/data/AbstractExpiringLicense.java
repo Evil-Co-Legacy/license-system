@@ -16,6 +16,7 @@
 package com.evilco.license.common.data;
 
 import com.evilco.license.common.data.holder.ILicenseHolder;
+import com.evilco.license.common.exception.LicenseExpirationException;
 import com.evilco.license.common.exception.LicenseInvalidException;
 
 import javax.annotation.Nonnull;
@@ -80,6 +81,6 @@ public abstract class AbstractExpiringLicense extends AbstractLicense {
 	@Override
 	public void validate () throws LicenseInvalidException {
 		super.validate ();
-		if (this.isExpired ()) throw new LicenseInvalidException ("The license is expired.");
+		if (this.isExpired ()) throw new LicenseExpirationException ("The license is expired.");
 	}
 }

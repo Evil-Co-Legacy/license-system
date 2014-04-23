@@ -22,6 +22,7 @@ import com.evilco.license.common.data.holder.CompanyLicenseHolder;
 import com.evilco.license.common.data.holder.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseDecoderException;
 import com.evilco.license.common.exception.LicenseEncoderException;
+import com.evilco.license.common.exception.LicenseExpirationException;
 import com.evilco.license.common.exception.LicenseInvalidException;
 import com.evilco.license.common.utility.SignatureUtility;
 import com.evilco.license.server.encoder.CompressedLicenseEncoder;
@@ -195,7 +196,7 @@ public class GeneralTest {
 	 * @throws LicenseDecoderException
 	 * @throws NoSuchAlgorithmException
 	 */
-	@Test (expected = LicenseInvalidException.class)
+	@Test (expected = LicenseExpirationException.class)
 	public void validationSignatureTest () throws LicenseEncoderException, LicenseDecoderException, NoSuchAlgorithmException {
 		// generate new key pair
 		PrivateKey temporaryKey = SignatureUtility.generateKeyPair (KEY_SIZE).getPrivate ();
