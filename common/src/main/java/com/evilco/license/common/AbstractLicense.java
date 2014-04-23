@@ -32,7 +32,7 @@ public abstract class AbstractLicense implements ILicense {
 	/**
 	 * Stores the license expiration.
 	 */
-	protected long expiration;
+	protected Date expiration = null;
 
 	/**
 	 * Stores the license licensee.
@@ -49,7 +49,7 @@ public abstract class AbstractLicense implements ILicense {
 	 * @param licensee
 	 * @param expiration
 	 */
-	protected AbstractLicense (@Nonnull ILicenseHolder licensee, long expiration) {
+	protected AbstractLicense (@Nonnull ILicenseHolder licensee, Date expiration) {
 		Preconditions.checkNotNull (licensee);
 
 		this.licensee = licensee;
@@ -61,8 +61,8 @@ public abstract class AbstractLicense implements ILicense {
 	 */
 	@Override
 	public Date getExpirationDate () {
-		if (this.expiration < 0) return null;
-		return (new Date (((long) this.expiration * 1000)));
+		if (this.expiration == null) return null;
+		return this.expiration;
 	}
 
 	/**
@@ -78,7 +78,7 @@ public abstract class AbstractLicense implements ILicense {
 	 */
 	@Override
 	public boolean isExpired () {
-		return (this.expiration > 0 && this.expiration < (System.currentTimeMillis () / 1000L));
+		return (this.expiration != null && this.expiration.before (new Date ()));
 	}
 
 	/**
