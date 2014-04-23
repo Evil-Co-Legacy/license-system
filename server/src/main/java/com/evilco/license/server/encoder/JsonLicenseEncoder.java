@@ -17,8 +17,8 @@ package com.evilco.license.server.encoder;
 
 import com.evilco.license.common.ILicense;
 import com.evilco.license.common.annotation.LicenseVersion;
-import com.evilco.license.common.data.ILicenseHolder;
-import com.evilco.license.common.data.LicenseHolderJsonAdapter;
+import com.evilco.license.common.data.holder.ILicenseHolder;
+import com.evilco.license.common.data.holder.LicenseHolderJsonAdapter;
 import com.evilco.license.common.exception.LicenseEncoderException;
 import com.google.common.base.Charsets;
 import com.google.common.base.Preconditions;

@@ -13,18 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evilco.license.common.data;
 
 /**
- * Provides default methods for license holders.
+ * Provides licensee information representations.
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public interface ILicenseHolder {
-
-	/**
-	 * Returns the licensee name.
-	 * @return The licensee name.
-	 */
-	public String getLicenseeName ();
-}
+package com.evilco.license.common.data.holder;

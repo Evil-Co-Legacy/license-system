@@ -17,10 +17,9 @@ package com.evilco.license.test;
 
 import com.evilco.license.client.decoder.CompressedLicenseDecoder;
 import com.evilco.license.client.decoder.JsonLicenseDecoder;
-import com.evilco.license.common.AbstractLicense;
-import com.evilco.license.common.ILicense;
-import com.evilco.license.common.data.CompanyLicenseHolder;
-import com.evilco.license.common.data.ILicenseHolder;
+import com.evilco.license.common.data.AbstractLicense;
+import com.evilco.license.common.data.holder.CompanyLicenseHolder;
+import com.evilco.license.common.data.holder.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseDecoderException;
 import com.evilco.license.common.exception.LicenseEncoderException;
 import com.evilco.license.common.exception.LicenseInvalidException;

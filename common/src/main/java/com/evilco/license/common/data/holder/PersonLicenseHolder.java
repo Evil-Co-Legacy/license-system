@@ -13,45 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evilco.license.common.data;
+package com.evilco.license.common.data.holder;
 
 import com.google.common.base.Preconditions;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
- * Provides a simple company license holder implementation.
+ * Provides a simple person license holder implementation.
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public class CompanyLicenseHolder implements ILicenseHolder {
+public class PersonLicenseHolder implements ILicenseHolder {
 
 	/**
-	 * Stores the company name.
+	 * Stores the licensee name.
 	 */
-	protected String companyName;
+	protected String name;
 
 	/**
-	 * Stores the license contact.
+	 * Constructs a new empty PersonLicenseHolder.
 	 */
-	protected ILicenseHolder contact;
+	protected PersonLicenseHolder () { }
 
 	/**
-	 * Constructs a new empty CompanyLicenseHolder.
+	 * Constructs a new PersonLicenseHolder.
+	 * @param name
 	 */
-	protected CompanyLicenseHolder () { }
+	public PersonLicenseHolder (@Nonnull String name) {
+		Preconditions.checkNotNull (name);
 
-	/**
-	 * Constructs a new CompanyLicenseHolder.
-	 * @param companyName The licensee name.
-	 * @param contact The license contact person/company.
-	 */
-	public CompanyLicenseHolder (@Nonnull String companyName, @Nullable ILicenseHolder contact) {
-		Preconditions.checkNotNull (companyName);
-
-		this.companyName = companyName;
-		this.contact = contact;
+		this.name = name;
 	}
 
 	/**
@@ -59,6 +51,6 @@ public class CompanyLicenseHolder implements ILicenseHolder {
 	 */
 	@Override
 	public String getLicenseeName () {
-		return this.companyName;
+		return this.name;
 	}
 }

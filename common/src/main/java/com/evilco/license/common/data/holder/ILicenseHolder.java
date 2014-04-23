@@ -13,44 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.evilco.license.common.data;
-
-import com.google.common.base.Preconditions;
-
-import javax.annotation.Nonnull;
+package com.evilco.license.common.data.holder;
 
 /**
- * Provides a simple person license holder implementation.
+ * Provides default methods for license holders.
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public class PersonLicenseHolder implements ILicenseHolder {
+public interface ILicenseHolder {
 
 	/**
-	 * Stores the licensee name.
+	 * Returns the licensee name.
+	 * @return The licensee name.
 	 */
-	protected String name;
-
-	/**
-	 * Constructs a new empty PersonLicenseHolder.
-	 */
-	protected PersonLicenseHolder () { }
-
-	/**
-	 * Constructs a new PersonLicenseHolder.
-	 * @param name
-	 */
-	public PersonLicenseHolder (@Nonnull String name) {
-		Preconditions.checkNotNull (name);
-
-		this.name = name;
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public String getLicenseeName () {
-		return this.name;
-	}
+	public String getLicenseeName ();
 }
