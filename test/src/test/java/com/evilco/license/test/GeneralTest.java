@@ -18,6 +18,8 @@ package com.evilco.license.test;
 import com.evilco.license.client.decoder.CompressedLicenseDecoder;
 import com.evilco.license.client.decoder.JsonLicenseDecoder;
 import com.evilco.license.common.AbstractLicense;
+import com.evilco.license.common.data.CompanyLicenseHolder;
+import com.evilco.license.common.data.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseDecoderException;
 import com.evilco.license.common.exception.LicenseEncoderException;
 import com.evilco.license.common.exception.LicenseInvalidException;
@@ -110,7 +112,7 @@ public class GeneralTest {
 	@Test
 	public void encodeTest () throws LicenseEncoderException, IOException {
 		// create license
-		TestLicense license = new TestLicense ("Example Company", System.currentTimeMillis (), 42);
+		TestLicense license = new TestLicense (new CompanyLicenseHolder ("Example Ltd.", null), System.currentTimeMillis (), 42);
 
 		// create license encoder
 		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (this.keyPair.getPrivate ()));
@@ -129,7 +131,7 @@ public class GeneralTest {
 	@Test
 	public void encodeDecodeTest () throws LicenseEncoderException, LicenseDecoderException, IOException {
 		// create license
-		TestLicense license = new TestLicense ("Example Company", System.currentTimeMillis (), 42);
+		TestLicense license = new TestLicense (new CompanyLicenseHolder ("Example Ltd.", null), System.currentTimeMillis (), 42);
 
 		// create codec instances
 		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (this.keyPair.getPrivate ()));
@@ -154,7 +156,7 @@ public class GeneralTest {
 	@Test (expected = LicenseInvalidException.class)
 	public void validationExpirationTest () throws LicenseEncoderException, LicenseDecoderException {
 		// create license (expired)
-		TestLicense license = new TestLicense ("Example Company", ((System.currentTimeMillis () / 1000) - 60000L), 42);
+		TestLicense license = new TestLicense (new CompanyLicenseHolder ("Example Ltd.", null), ((System.currentTimeMillis () / 1000) - 60000L), 42);
 
 		// create codec instances
 		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (this.keyPair.getPrivate ()));
@@ -179,7 +181,7 @@ public class GeneralTest {
 		PrivateKey temporaryKey = SignatureUtility.generateKeyPair (KEY_SIZE).getPrivate ();
 
 		// create license
-		TestLicense license = new TestLicense ("Example Company", System.currentTimeMillis (), 42);
+		TestLicense license = new TestLicense (new CompanyLicenseHolder ("Example Ltd.", null), System.currentTimeMillis (), 42);
 
 		// create codec instances
 		CompressedLicenseEncoder encoder = new CompressedLicenseEncoder (new JsonLicenseEncoder (temporaryKey));
@@ -214,7 +216,7 @@ public class GeneralTest {
 		 * @param licensee
 		 * @param expiration
 		 */
-		protected TestLicense (String licensee, long expiration, int testValue) {
+		protected TestLicense (ILicenseHolder licensee, long expiration, int testValue) {
 			super (licensee, expiration);
 			this.testValue = testValue;
 		}

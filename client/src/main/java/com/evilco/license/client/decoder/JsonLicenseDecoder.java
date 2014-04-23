@@ -16,6 +16,8 @@
 package com.evilco.license.client.decoder;
 
 import com.evilco.license.common.ILicense;
+import com.evilco.license.common.data.ILicenseHolder;
+import com.evilco.license.common.data.LicenseHolderJsonAdater;
 import com.evilco.license.common.exception.LicenseDecoderException;
 import com.evilco.license.common.exception.LicenseInvalidException;
 import com.google.common.base.Charsets;
@@ -48,6 +50,11 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 	public static final Charset CHARSET_LICENSE_TEXT = Charsets.UTF_8;
 
 	/**
+	 * Stores the internal gson builder.
+	 */
+	protected final GsonBuilder gsonBuilder = new GsonBuilder ();
+
+	/**
 	 * Stores the license public key.
 	 */
 	protected final PublicKey publicKey;
@@ -61,6 +68,9 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 
 		// store key
 		this.publicKey = publicKey;
+
+		// add default type adapters
+		this.gsonBuilder.registerTypeAdapter (ILicenseHolder.class, new LicenseHolderJsonAdater ());
 	}
 
 	/**
@@ -73,8 +83,11 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 
 		// load data
 		try {
-			// read data length
+			// read version
 			double version = inputStream.readDouble ();
+			this.gsonBuilder.setVersion (version);
+
+			// read data length
 			int dataLength = inputStream.readInt ();
 
 			// read data
@@ -104,7 +117,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 			if (!signatureAlgorithm.verify (signature)) throw new LicenseInvalidException ("The license signature is not valid.");
 
 			// read json data
-			ILicense license = this.getGson (version).fromJson (licenseText, licenseType);
+			ILicense license = this.getGson ().fromJson (licenseText, licenseType);
 
 			// validate license
 			license.validate ();
@@ -135,14 +148,18 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 
 	/**
 	 * Returns the gson instance for json de- and encoding.
-	 * @param version The object version.
 	 * @return The gson instance.
 	 */
-	public Gson getGson (double version) {
-		GsonBuilder builder = new GsonBuilder ();
-		builder.setVersion (version);
+	public Gson getGson () {
+		return this.gsonBuilder.create ();
+	}
 
-		return builder.create ();
+	/**
+	 * Returns the gson builder.
+	 * @return
+	 */
+	public GsonBuilder getGsonBuilder () {
+		return this.gsonBuilder;
 	}
 
 	/**

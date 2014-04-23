@@ -15,8 +15,11 @@
  */
 package com.evilco.license.common;
 
+import com.evilco.license.common.data.ILicenseHolder;
 import com.evilco.license.common.exception.LicenseInvalidException;
+import com.google.common.base.Preconditions;
 
+import javax.annotation.Nonnull;
 import java.util.Date;
 
 /**
@@ -34,7 +37,7 @@ public abstract class AbstractLicense implements ILicense {
 	/**
 	 * Stores the license licensee.
 	 */
-	protected String licensee;
+	protected ILicenseHolder licensee;
 
 	/**
 	 * Constructs a new empty AbstractLicense.
@@ -46,7 +49,9 @@ public abstract class AbstractLicense implements ILicense {
 	 * @param licensee
 	 * @param expiration
 	 */
-	protected AbstractLicense (String licensee, long expiration) {
+	protected AbstractLicense (@Nonnull ILicenseHolder licensee, long expiration) {
+		Preconditions.checkNotNull (licensee);
+
 		this.licensee = licensee;
 		this.expiration = expiration;
 	}
@@ -56,7 +61,16 @@ public abstract class AbstractLicense implements ILicense {
 	 */
 	@Override
 	public Date getExpirationDate () {
+		if (this.expiration < 0) return null;
 		return (new Date (((long) this.expiration * 1000)));
+	}
+
+	/**
+	 * Returns the licensee.
+	 * @return
+	 */
+	public ILicenseHolder getLicensee () {
+		return this.licensee;
 	}
 
 	/**
@@ -64,7 +78,7 @@ public abstract class AbstractLicense implements ILicense {
 	 */
 	@Override
 	public boolean isExpired () {
-		return (this.expiration < (System.currentTimeMillis () / 1000L));
+		return (this.expiration > 0 && this.expiration < (System.currentTimeMillis () / 1000L));
 	}
 
 	/**
