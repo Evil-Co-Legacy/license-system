@@ -24,16 +24,39 @@ import java.lang.reflect.Type;
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public class LicenseHolderJsonAdapter implements JsonDeserializer<ILicenseHolder> {
+public class LicenseHolderJsonAdapter implements JsonDeserializer<ILicenseHolder>, JsonSerializer<ILicenseHolder> {
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public ILicenseHolder deserialize (JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-		if (json.getAsJsonObject ().has ("companyName"))
-			return context.deserialize (json, CompanyLicenseHolder.class);
-		else
-			return context.deserialize (json, PersonLicenseHolder.class);
+		// get implementation name
+		try {
+			// get class instance
+			Class<? extends ILicenseHolder> licenseClass = Class.forName (json.getAsJsonObject ().get ("implementationClassName").getAsString ()).asSubclass (ILicenseHolder.class);
+
+			// de-serialize
+			return context.deserialize (json, licenseClass);
+		} catch (ClassCastException ex) {
+			throw new JsonParseException (ex.getMessage (), ex);
+		} catch (ClassNotFoundException ex) {
+			throw new JsonParseException (ex.getMessage (), ex);
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public JsonElement serialize (ILicenseHolder src, Type typeOfSrc, JsonSerializationContext context) {
+		// encode object
+		JsonElement element = context.serialize (src, src.getClass ());
+
+		// append name
+		element.getAsJsonObject ().add ("implementationClassName", context.serialize (src.getClass ().getName ()));
+
+		// return modified element
+		return element;
 	}
 }
