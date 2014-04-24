@@ -50,6 +50,12 @@ as the repository url.
 
 The library is currently not available through maven central but might become available in the future.
 
+Bug Reporting
+-------------
+Please report bugs in our [Bugtracker](https://evilco.atlassian.net/browse/JLS/). If you don't want to wait for them to
+fixed by one of our project members you can also submit a bugfix on GitHub with the pull request feature (please refer
+to the contribution section for more information and notices).
+
 Usage
 -----
 For examples on how to use the library please refer to ```test/src/test/java/com/evilco/license/test/GeneralTest.java```
@@ -98,6 +104,11 @@ Extensions
 ----------
 Due to the interfaces provided along with the libraries you may also implement your own formats (as example extending
 the original JSON format).
+
+Contribution
+------------
+You may contribute to this library by cloning it on GitHub and using GitHub's built-in pull-request feature. Please note
+that all contributions are placed under the terms of the Apache License, Version 2.0.
 
 License
 -------
