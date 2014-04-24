@@ -92,7 +92,7 @@ public class JsonLicenseEncoder implements ILicenseEncoder<byte[]> {
 
 			// write data
 			outputStream.writeDouble (version);
-			outputStream.writeInt (dataRaw.length);
+			outputStream.writeShort (dataRaw.length);
 			outputStream.write (dataRaw);
 
 			// create signature
@@ -106,7 +106,7 @@ public class JsonLicenseEncoder implements ILicenseEncoder<byte[]> {
 			byte[] signatureRaw = signature.sign ();
 
 			// write signature
-			outputStream.writeInt (signatureRaw.length);
+			outputStream.writeShort (signatureRaw.length);
 			outputStream.write (signatureRaw);
 
 			// flush

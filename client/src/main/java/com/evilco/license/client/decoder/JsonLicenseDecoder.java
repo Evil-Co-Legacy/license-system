@@ -88,17 +88,17 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 			this.gsonBuilder.setVersion (version);
 
 			// read data length
-			int dataLength = inputStream.readInt ();
+			short dataLength = inputStream.readShort ();
 
 			// read data
-			byte[] data = new byte[dataLength]; // FIXME: There is a possible exploit here. If the supplied data is malformed this might cause the heap to overflow. No clue whether we can fix this but it should be hard to exploit in most applications anyways ...
+			byte[] data = new byte[dataLength];
 			inputStream.readFully (data);
 
 			// decode string
 			String licenseText = new String (data, CHARSET_LICENSE_TEXT);
 
 			// read signature length
-			int signatureLength = inputStream.readInt ();
+			int signatureLength = inputStream.readShort ();
 
 			// read signature
 			byte[] signature = new byte[signatureLength];
