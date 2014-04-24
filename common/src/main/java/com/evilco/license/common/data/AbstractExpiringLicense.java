@@ -56,7 +56,6 @@ public abstract class AbstractExpiringLicense extends AbstractLicense {
 	 * {@inheritDoc}
 	 */
 	public Date getExpirationDate () {
-		if (this.expiration == null) return null;
 		return this.expiration;
 	}
 
