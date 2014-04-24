@@ -120,7 +120,7 @@ public class GeneralTest {
 		CompressedLicenseDecoder decoder = new CompressedLicenseDecoder (new JsonLicenseDecoder (this.keyPair.getPublic ()));
 
 		// load license
-		TestLicense license = ((TestLicense) decoder.decode (encodedLicense, TestLicense.class));
+		TestLicense license = decoder.decode (encodedLicense, TestLicense.class);
 
 		// verify license
 		Assert.assertNotNull (license);
@@ -163,7 +163,7 @@ public class GeneralTest {
 		String encodedLicense = encoder.encode (license);
 
 		// decode
-		TestLicense license1 = ((TestLicense) decoder.decode (encodedLicense, TestLicense.class));
+		TestLicense license1 = decoder.decode (encodedLicense, TestLicense.class);
 
 		// check
 		Assert.assertNotNull (license1);

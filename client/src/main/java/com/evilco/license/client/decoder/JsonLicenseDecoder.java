@@ -77,7 +77,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ILicense decode (@Nonnull DataInputStream inputStream, @Nonnull Class<? extends ILicense> licenseType) throws LicenseDecoderException {
+	public <T extends ILicense> T decode (@Nonnull DataInputStream inputStream, @Nonnull Class<T> licenseType) throws LicenseDecoderException {
 		Preconditions.checkNotNull (inputStream, "inputStream");
 		Preconditions.checkNotNull (licenseType, "licenseType");
 
@@ -123,7 +123,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 			license.validate ();
 
 			// return license
-			return license;
+			return ((T) license);
 		} catch (IOException ex) {
 			throw new LicenseDecoderException (ex.getMessage (), ex);
 		} catch (InvalidKeyException ex) {
@@ -137,7 +137,7 @@ public class JsonLicenseDecoder implements ILicenseDecoder<byte []> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ILicense decode (@Nonnull byte[] input, @Nonnull Class<? extends ILicense> licenseType) throws LicenseDecoderException {
+	public <T extends ILicense> T decode (@Nonnull byte[] input, @Nonnull Class<T> licenseType) throws LicenseDecoderException {
 		// create input stream
 		ByteArrayInputStream inputStream = new ByteArrayInputStream (input);
 		DataInputStream dataInputStream = new DataInputStream (inputStream);

@@ -28,7 +28,7 @@ import java.io.IOException;
  * @author			Johannes "Akkarin" Donath <johannesd@evil-co.com>
  * @copyright			Copyright (C) 2014 Evil-Co <http://www.evil-co.com>
  */
-public interface ILicenseDecoder<T> extends ILicenseCodec {
+public interface ILicenseDecoder<E> extends ILicenseCodec {
 
 	/**
 	 * Decodes a license file.
@@ -38,7 +38,7 @@ public interface ILicenseDecoder<T> extends ILicenseCodec {
 	 * @throws IOException
 	 * @throws LicenseDecoderException
 	 */
-	public ILicense decode (@Nonnull DataInputStream inputStream, @Nonnull Class<? extends ILicense> licenseType) throws IOException, LicenseDecoderException;
+	public <T extends ILicense> T decode (@Nonnull DataInputStream inputStream, @Nonnull Class<T> licenseType) throws IOException, LicenseDecoderException;
 
 	/**
 	 * Decodes a license file.
@@ -47,5 +47,5 @@ public interface ILicenseDecoder<T> extends ILicenseCodec {
 	 * @return A decoded license instance.
 	 * @throws LicenseDecoderException
 	 */
-	public ILicense decode (@Nonnull T input, @Nonnull Class<? extends ILicense> licenseType) throws LicenseDecoderException;
+	public <T extends ILicense> T decode (@Nonnull E input, @Nonnull Class<T> licenseType) throws LicenseDecoderException;
 }

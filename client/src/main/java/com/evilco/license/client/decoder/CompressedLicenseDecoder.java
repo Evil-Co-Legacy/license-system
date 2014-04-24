@@ -51,7 +51,7 @@ public class CompressedLicenseDecoder implements ILicenseDecoder<String> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ILicense decode (@Nonnull DataInputStream inputStream, @Nonnull Class<? extends ILicense> licenseType) throws IOException, LicenseDecoderException {
+	public <T extends ILicense> T decode (@Nonnull DataInputStream inputStream, @Nonnull Class<T> licenseType) throws IOException, LicenseDecoderException {
 		throw new UnsupportedOperationException ("Decoding compressed licenses from DataInputStreams is not supported.");
 	}
 
@@ -59,7 +59,7 @@ public class CompressedLicenseDecoder implements ILicenseDecoder<String> {
 	 * {@inheritDoc}
 	 */
 	@Override
-	public ILicense decode (@Nonnull String input, @Nonnull Class<? extends ILicense> licenseType) throws LicenseDecoderException {
+	public <T extends ILicense> T decode (@Nonnull String input, @Nonnull Class<T> licenseType) throws LicenseDecoderException {
 		// define streams
 		ByteArrayInputStream inputStream = null;
 		GZIPInputStream gzipInputStream = null;
@@ -79,7 +79,7 @@ public class CompressedLicenseDecoder implements ILicenseDecoder<String> {
 			dataInputStream = new DataInputStream (gzipInputStream);
 
 			// decode data
-			return this.childDecoder.decode (dataInputStream, licenseType);
+			return ((T) this.childDecoder.decode (dataInputStream, licenseType));
 		} catch (IOException ex) {
 			throw new LicenseDecoderException (ex.getMessage (), ex);
 		} finally {
