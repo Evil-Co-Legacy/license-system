@@ -85,7 +85,7 @@ public abstract class AbstractGracefulExpiringLicense extends AbstractExpiringLi
 	 * @return True if the license is still in it's grace period.
 	 */
 	public boolean isInGracePeriod () {
-		return this.getGracePeriodExpiration ().after (new Date ());
+		return (this.isExpired () && this.getGracePeriodExpiration ().after (new Date ()));
 	}
 
 	/**
